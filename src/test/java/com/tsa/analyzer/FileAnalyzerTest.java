@@ -8,9 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static com.tsa.analyzer.FileAnalyzer.*;
+import static com.tsa.analyzer.Service.*;
 
 public class FileAnalyzerTest {
+
+    FileAnalyzer fileAnalyzer = new FileAnalyzer();
 
     @DisplayName("Test checkParameters(), IllegalArgumentException is thrown when" +
             " a quantity of parameters is less than two")
@@ -57,9 +59,9 @@ public class FileAnalyzerTest {
     void testIsSentenceSeparatorAccordingRequirements() {
         char[] chars = {'.', '!', '?'};
 
-        assertTrue(isSentenceSeparator(chars[0]));
-        assertTrue(isSentenceSeparator(chars[1]));
-        assertTrue(isSentenceSeparator(chars[2]));
+        assertTrue(fileAnalyzer.isSentenceSeparator(chars[0]));
+        assertTrue(fileAnalyzer.isSentenceSeparator(chars[1]));
+        assertTrue(fileAnalyzer.isSentenceSeparator(chars[2]));
     }
 
     @DisplayName("Test isSentenceSeparator(), returns FALSE when char is NOT '.', '!', '?'")
@@ -67,9 +69,9 @@ public class FileAnalyzerTest {
     void testIsSentenceSeparatorRequirementsAreNotValid() {
         char[] chars = {'d', ' ', '\n'};
 
-        assertFalse(isSentenceSeparator(chars[0]));
-        assertFalse(isSentenceSeparator(chars[1]));
-        assertFalse(isSentenceSeparator(chars[2]));
+        assertFalse(fileAnalyzer.isSentenceSeparator(chars[0]));
+        assertFalse(fileAnalyzer.isSentenceSeparator(chars[1]));
+        assertFalse(fileAnalyzer.isSentenceSeparator(chars[2]));
     }
 
     @DisplayName("Test isCrlf(), returns TRUE when char is '\n', '\r'")
@@ -77,8 +79,8 @@ public class FileAnalyzerTest {
     void testisCrlfReturnsTrueWhenCRLF() {
         char[] chars = {'\r', '\n'};
 
-        assertTrue(isCrlf(chars[0]));
-        assertTrue(isCrlf(chars[1]));
+        assertTrue(fileAnalyzer.isCrlf(chars[0]));
+        assertTrue(fileAnalyzer.isCrlf(chars[1]));
     }
 
     @DisplayName("Test isCrlf(), returns FALSE when char is not '\n', '\r'")
@@ -86,8 +88,8 @@ public class FileAnalyzerTest {
     void testisCrlfReturnsFalseWhenNotCRLF() {
         char[] chars = {'a', ' '};
 
-        assertFalse(isCrlf(chars[0]));
-        assertFalse(isCrlf(chars[1]));
+        assertFalse(fileAnalyzer.isCrlf(chars[0]));
+        assertFalse(fileAnalyzer.isCrlf(chars[1]));
     }
 
     @DisplayName("Test getSentenceContainsWord(), <Word is present> fill List with a sentence when the sentence contains needed word")
@@ -99,7 +101,7 @@ public class FileAnalyzerTest {
         var stringBuilder = new StringBuilder();
         stringBuilder.append(text);
 
-        getSentenceContainsWord(coincides, stringBuilder, word);
+        fileAnalyzer.getSentenceContainsWord(coincides, stringBuilder, word);
 
         assertEquals(1, coincides.size());
         assertEquals(text, coincides.get(0));
@@ -117,7 +119,7 @@ public class FileAnalyzerTest {
         var stringBuilder = new StringBuilder();
         stringBuilder.append(text);
 
-        getSentenceContainsWord(coincides, stringBuilder, word);
+        fileAnalyzer.getSentenceContainsWord(coincides, stringBuilder, word);
 
         assertEquals(0, coincides.size());
     }
@@ -133,9 +135,18 @@ public class FileAnalyzerTest {
     }
 
     @Test
-    void testMain() {
-        FileAnalyzer.main(new String[]{"text.txt", "language"});
+    void testProcessFile() {
 
-        assertEquals(15, FileAnalyzer.getCoincides().size());
+        var list = fileAnalyzer.processFile(new File("text.txt"), "language");
+
+        assertEquals(15, list.size());
+    }
+
+    @Test
+    void testFileStatistic() {
+        var list = fileAnalyzer.processFile(new File("text.txt"), "language");
+        var fileStatistic = new FileStatistic(list);
+
+        System.out.println(fileStatistic);
     }
 }
