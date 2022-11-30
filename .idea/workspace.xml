@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41db5334-c6c5-496d-9129-02ff1596ff15" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    <list default="true" id="41db5334-c6c5-496d-9129-02ff1596ff15" name="Changes" comment="FileAnalyzer - individual review - 1">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/FileAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/FileAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/tsa/analyzer/FileAnalyzerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/tsa/analyzer/FileAnalyzerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,15 +29,15 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "aspect.path.notification.shown": "true",
-    "last_opened_file_path": "F:/0_CODING/11_Anatol_java/file-analyzer"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;aspect.path.notification.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/0_CODING/11_Anatol_java/file-analyzer&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\0_CODING\11_Anatol_java\file-analyzer" />
@@ -49,8 +46,8 @@
       <recent name="com.tsa.analyzer" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FileAnalyzerTest.testClass">
-    <configuration name="FileAnalyzerTest.name" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.FileAnalyzerTest">
+    <configuration name="FileAnalyzerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="file-analyzer" />
       <extension name="coverage">
         <pattern>
@@ -60,13 +57,28 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
       <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
-      <option name="METHOD_NAME" value="name" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileAnalyzerTest.testGetSentenceContainsWord" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="file-analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsa.analyzer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
+      <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
+      <option name="METHOD_NAME" value="testGetSentenceContainsWord" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileAnalyzerTest.testClass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FileAnalyzerTest.testGetSentenceContainsWordWordIsNotPresent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="file-analyzer" />
       <extension name="coverage">
         <pattern>
@@ -76,7 +88,39 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
       <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
-      <option name="METHOD_NAME" value="testClass" />
+      <option name="METHOD_NAME" value="testGetSentenceContainsWordWordIsNotPresent" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileAnalyzerTest.testMain" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="file-analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsa.analyzer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
+      <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
+      <option name="METHOD_NAME" value="testMain" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileAnalyzerTest.testPrintResult" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="file-analyzer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.tsa.analyzer.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
+      <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
+      <option name="METHOD_NAME" value="testPrintResult" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -84,8 +128,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.FileAnalyzerTest.testClass" />
-        <item itemvalue="JUnit.FileAnalyzerTest.name" />
+        <item itemvalue="JUnit.FileAnalyzerTest" />
+        <item itemvalue="JUnit.FileAnalyzerTest.testPrintResult" />
+        <item itemvalue="JUnit.FileAnalyzerTest.testGetSentenceContainsWordWordIsNotPresent" />
+        <item itemvalue="JUnit.FileAnalyzerTest.testGetSentenceContainsWord" />
+        <item itemvalue="JUnit.FileAnalyzerTest.testMain" />
       </list>
     </recent_temporary>
   </component>
@@ -97,8 +144,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1669716446667</updated>
-      <workItem from="1669716448181" duration="5673000" />
+      <workItem from="1669716448181" duration="7441000" />
+      <workItem from="1669793349117" duration="5054000" />
     </task>
+    <task id="LOCAL-00001" summary="FileAnalyzer - individual review - 1">
+      <created>1669725634973</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1669725634973</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,5 +170,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="FileAnalyzer - individual review - 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="FileAnalyzer - individual review - 1" />
   </component>
 </project>
