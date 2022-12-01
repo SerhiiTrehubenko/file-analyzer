@@ -74,13 +74,20 @@ public class FileAnalyzerTest {
         assertFalse(fileAnalyzer.isSentenceSeparator(chars[2]));
     }
 
-    @DisplayName("Test isCrlf(), returns TRUE when char is '\n', '\r'")
+    @DisplayName("Test isCrlf(), returns TRUE when char is '\r'")
     @Test
-    void testisCrlfReturnsTrueWhenCRLF() {
-        char[] chars = {'\r', '\n'};
+    void testisCrlfReturnsTrueWhenCr() {
+        char chars = '\r';
 
-        assertTrue(fileAnalyzer.isCrlf(chars[0]));
-        assertTrue(fileAnalyzer.isCrlf(chars[1]));
+        assertTrue(fileAnalyzer.isCr(chars));
+    }
+
+    @DisplayName("Test isLf(), returns TRUE when char is '\n'")
+    @Test
+    void testisCrlfReturnsTrueWhenLf() {
+        char chars = '\n';
+
+        assertTrue(fileAnalyzer.isLf(chars));
     }
 
     @DisplayName("Test isCrlf(), returns FALSE when char is not '\n', '\r'")
@@ -88,23 +95,24 @@ public class FileAnalyzerTest {
     void testisCrlfReturnsFalseWhenNotCRLF() {
         char[] chars = {'a', ' '};
 
-        assertFalse(fileAnalyzer.isCrlf(chars[0]));
-        assertFalse(fileAnalyzer.isCrlf(chars[1]));
+        assertFalse(fileAnalyzer.isCr(chars[0]));
+        assertFalse(fileAnalyzer.isCr(chars[1]));
     }
 
     @DisplayName("Test getSentenceContainsWord(), <Word is present> fill List with a sentence when the sentence contains needed word")
     @Test
     void testGetSentenceContainsWordWordIsPresent() {
-        String word = "language";
+        String word = "languages";
         String text = "This is true of both spoken/written languages and programming languages.";
         List<String> coincides = new ArrayList<>();
         var stringBuilder = new StringBuilder();
         stringBuilder.append(text);
 
-        fileAnalyzer.getSentenceContainsWord(coincides, stringBuilder, word);
+        int numberWordCoincides = fileAnalyzer.getSentenceContainsWord(coincides, stringBuilder, word);
 
         assertEquals(1, coincides.size());
         assertEquals(text, coincides.get(0));
+        assertEquals(2, numberWordCoincides);
     }
 
     @DisplayName("Test getSentenceContainsWord(), <Word is not present> fill List with a sentence when the sentence contains needed word")
@@ -125,27 +133,9 @@ public class FileAnalyzerTest {
     }
 
     @Test
-    void testPrintResult() {
-        List<String> list = new ArrayList<>();
-        list.add("Requiring that everything be\n" +
-                "an object (especially all the way down to the lowest level) is a design mistake, but\n" +
-                "banning objects altogether seems equally draconian.");
-
-        printResult(list);
-    }
-
-    @Test
-    void testProcessFile() {
-
-        var list = fileAnalyzer.processFile(new File("text.txt"), "language");
-
-        assertEquals(15, list.size());
-    }
-
-    @Test
     void testFileStatistic() {
-        var list = fileAnalyzer.processFile(new File("text.txt"), "language");
-        var fileStatistic = new FileStatistic(list);
+        String wordToFind = "language";
+        var fileStatistic = fileAnalyzer.processFile(new File("text.txt"), wordToFind);
 
         System.out.println(fileStatistic);
     }

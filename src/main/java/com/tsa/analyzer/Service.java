@@ -1,7 +1,6 @@
 package com.tsa.analyzer;
 
 import java.io.File;
-import java.util.List;
 
 public class Service {
 
@@ -18,16 +17,6 @@ public class Service {
             throw new RuntimeException("there is a problem with the Path: " + file.getAbsolutePath());
         }
         return parameters;
-    }
-
-    static void printResult(List<String> coincides) {
-        System.out.println("Number of coincides: " + coincides.size());
-        System.out.println();
-        int count = 1;
-        for (String coincide : coincides) {
-            System.out.println(count + ") " + coincide);
-            count++;
-        }
     }
 
 }

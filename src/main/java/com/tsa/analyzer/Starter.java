@@ -15,9 +15,9 @@ public class Starter {
 
         var fileAnalyzer = new FileAnalyzer();
 
-        var result = fileAnalyzer.processFile(file, wordToFind);
+        FileStatistic result = fileAnalyzer.processFile(file, wordToFind);
 
-        printResult(result);
+        System.out.println(result);
     }
 
 }

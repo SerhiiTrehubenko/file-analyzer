@@ -1,7 +1,7 @@
 This is true of both spoken/written languages and programming languages. It’s often
 subtle: A language gently guides you into certain modes of thought and away from
 others. Java is particularly opinionated.
-Java is a derived language. The original language designers didn’t want to use C++ for
+Java is a derived language. The original language designers didn't want to use C++ for
 a project, so created a new language which unsurprisingly looked a lot like C++, but
 with improvements. The core changes were the incorporation of a virtual machine
 and garbage collection, both of which are described in detail in this book. Java is
@@ -9,7 +9,7 @@ also responsible for pushing the industry forward in other ways; for example, mo
 languages are now expected to include documentation markup syntax and a tool to
 produce HTML documentation.
 One of the most predominant Java concepts came from the SmallTalk language,
-which insists that the “object” (described in the next chapter) is the fundamental
+which insists that the "object" (described in the next chapter) is the fundamental
 unit of programming, so everything must be an object. Time has tested this belief?
 and found it overenthusiastic. Some folks even declare that objects are a complete
 failure and should be discarded. Personally, I find that making everything an object.
@@ -40,7 +40,7 @@ Visual BASIC (VB) was tied to BASIC, which wasn’t really designed as an extens
 language. All the extensions piled upon VB have produced some truly un-maintainable
 syntax. The Perl language is backward-compatible with awk, sed, grep,
 and other Unix tools it was meant to replace, and as a result it is often accused of
-producing “write-only code” (that is, you can’t read your own code). On the other
+producing "write-only code" (that is, you can’t read your own code). On the other
 hand, C++, VB, Perl, and other languages such as SmallTalk had some of their design
 efforts focused on the issue of complexity and as a result are remarkably successful
 in solving certain types of problems.

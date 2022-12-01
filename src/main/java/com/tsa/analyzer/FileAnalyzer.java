@@ -4,11 +4,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Pattern;
 
 public class FileAnalyzer {
 
-    public List<String> processFile(File file, String wordToFind) {
+    private final static Pattern pattern = Pattern.compile("[, .?!]");
 
+    public FileStatistic processFile(File file, String wordToFind) {
+        int numberOfCoincidence = 0;
         List<String> coincides = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -16,41 +20,58 @@ public class FileAnalyzer {
             int readByte;
 
             while ((readByte = inputFile.read()) != -1) {
-                char castedChar = (char) readByte;
 
-                if (!isCrlf(castedChar)) {
-                    stringBuilder.append(castedChar);
+                if (!isCr(readByte) & !isLf(readByte)) {
+                    stringBuilder.append((char) readByte);
+                } else if (isLf(readByte)) {
+                    stringBuilder.append(' ');
                 }
 
-                if (isSentenceSeparator(castedChar)) {
-                    getSentenceContainsWord(coincides, stringBuilder, wordToFind);
+                if (isSentenceSeparator(readByte)) {
+                    numberOfCoincidence += getSentenceContainsWord(coincides, stringBuilder, wordToFind);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return coincides;
+        return new FileStatistic(coincides, wordToFind, numberOfCoincidence);
     }
 
-    void getSentenceContainsWord(List<String> coincides,
-                                 StringBuilder stringBuilder,
-                                 String wordToFind) {
+    int getSentenceContainsWord(List<String> coincides,
+                                StringBuilder stringBuilder,
+                                String wordToFind) {
 
         String sentenceToString = stringBuilder.toString().trim();
-
-        if (sentenceToString.contains(wordToFind)) {
+        int numberOfCoincidence = checkWordOnCoincidence(sentenceToString, wordToFind);
+        if (numberOfCoincidence > 0) {
             coincides.add(sentenceToString);
         }
         stringBuilder.delete(0, stringBuilder.length());
+        return numberOfCoincidence;
     }
 
-    boolean isCrlf(char castedChar) {
-        return castedChar == 10 | castedChar == 13;
+    int checkWordOnCoincidence(String sentence, String wordToFind) {
+        int count = 0;
+        String[] splitByWords = pattern.split(sentence);
+        for (String splitByWord : splitByWords) {
+            if (Objects.equals(splitByWord, wordToFind)) {
+                count++;
+            }
+        }
+        return count;
     }
 
-    boolean isSentenceSeparator(char castedChar) {
-        return String.valueOf(castedChar).equals(".") |
-                String.valueOf(castedChar).equals("!") |
-                String.valueOf(castedChar).equals("?");
+    boolean isCr(int readByte) {
+        return readByte == 13; // '\r'
+    }
+
+    boolean isLf(int readByte) {
+        return readByte == 10; // '\n'
+    }
+
+    boolean isSentenceSeparator(int castedChar) {
+        return castedChar == 46 | // '.'
+                castedChar == 33 | // '!'
+                castedChar == 63; // '?'
     }
 }
