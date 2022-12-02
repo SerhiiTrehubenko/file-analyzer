@@ -1,5 +1,6 @@
 package com.tsa.analyzer;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class FileAnalyzer {
         List<String> coincides = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
 
-        try (var inputFile = new FileInputStream(file)) {
+        try (var inputFile = new BufferedInputStream(new FileInputStream(file))) {
             int readByte;
 
             while ((readByte = inputFile.read()) != -1) {
