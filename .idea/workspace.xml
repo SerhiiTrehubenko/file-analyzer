@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="41db5334-c6c5-496d-9129-02ff1596ff15" name="Changes" comment="FileAnalyzer - refactor after Video14 CodeEater course" />
+    <list default="true" id="41db5334-c6c5-496d-9129-02ff1596ff15" name="Changes" comment="FileAnalyzer - add BufferedInputStream">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/FileAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/FileAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/FileStatistic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/FileStatistic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/Service.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/Starter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tsa/analyzer/Starter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/tsa/analyzer/FileAnalyzerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/tsa/analyzer/FileAnalyzerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/text.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/text.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,18 +42,25 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;aspect.path.notification.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/0_CODING/11_Anatol_java/file-analyzer&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "aspect.path.notification.shown": "true",
+    "last_opened_file_path": "F:/0_CODING/11_Anatol_java/file-analyzer/src/main/resources",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\0_CODING\11_Anatol_java\file-analyzer\src\main\resources" />
       <recent name="F:\0_CODING\11_Anatol_java\file-analyzer" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\0_CODING\11_Anatol_java\file-analyzer\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.tsa.analyzer" />
@@ -65,7 +82,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileAnalyzerTest.testFileStatistic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FileAnalyzerTest.integrationTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="file-analyzer" />
       <extension name="coverage">
         <pattern>
@@ -75,13 +92,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
       <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
-      <option name="METHOD_NAME" value="testFileStatistic" />
+      <option name="METHOD_NAME" value="integrationTest" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileAnalyzerTest.testGetSentenceContainsWordWordIsPresent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FileAnalyzerTest.testCheckParametersWithEligibleParameters" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="file-analyzer" />
       <extension name="coverage">
         <pattern>
@@ -91,13 +108,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
       <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
-      <option name="METHOD_NAME" value="testGetSentenceContainsWordWordIsPresent" />
+      <option name="METHOD_NAME" value="testCheckParametersWithEligibleParameters" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileAnalyzerTest.testMain" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FileAnalyzerTest.testCountWord" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="file-analyzer" />
       <extension name="coverage">
         <pattern>
@@ -107,13 +124,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
       <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
-      <option name="METHOD_NAME" value="testMain" />
+      <option name="METHOD_NAME" value="testCountWord" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="FileAnalyzerTest.testisCrlfReturnsTrueWhenLf" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FileAnalyzerTest.testGetListOfSentences" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="file-analyzer" />
       <extension name="coverage">
         <pattern>
@@ -123,7 +140,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.tsa.analyzer" />
       <option name="MAIN_CLASS_NAME" value="com.tsa.analyzer.FileAnalyzerTest" />
-      <option name="METHOD_NAME" value="testisCrlfReturnsTrueWhenLf" />
+      <option name="METHOD_NAME" value="testGetListOfSentences" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -132,10 +149,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.FileAnalyzerTest" />
-        <item itemvalue="JUnit.FileAnalyzerTest.testisCrlfReturnsTrueWhenLf" />
-        <item itemvalue="JUnit.FileAnalyzerTest.testGetSentenceContainsWordWordIsPresent" />
-        <item itemvalue="JUnit.FileAnalyzerTest.testFileStatistic" />
-        <item itemvalue="JUnit.FileAnalyzerTest.testMain" />
+        <item itemvalue="JUnit.FileAnalyzerTest.integrationTest" />
+        <item itemvalue="JUnit.FileAnalyzerTest.testGetListOfSentences" />
+        <item itemvalue="JUnit.FileAnalyzerTest.testCheckParametersWithEligibleParameters" />
+        <item itemvalue="JUnit.FileAnalyzerTest.testCountWord" />
       </list>
     </recent_temporary>
   </component>
@@ -150,6 +167,8 @@
       <workItem from="1669716448181" duration="7441000" />
       <workItem from="1669793349117" duration="11575000" />
       <workItem from="1669891328173" duration="6837000" />
+      <workItem from="1669970393262" duration="1451000" />
+      <workItem from="1670320996175" duration="18373000" />
     </task>
     <task id="LOCAL-00001" summary="FileAnalyzer - individual review - 1">
       <created>1669725634973</created>
@@ -179,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1669897352870</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="FileAnalyzer - add BufferedInputStream">
+      <created>1669970512874</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1669970512874</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,6 +227,7 @@
     <MESSAGE value="FileAnalyzer - tests expanded and refactoring" />
     <MESSAGE value="FileAnalyzer - refactor after Video13 CodeEater course" />
     <MESSAGE value="FileAnalyzer - refactor after Video14 CodeEater course" />
-    <option name="LAST_COMMIT_MESSAGE" value="FileAnalyzer - refactor after Video14 CodeEater course" />
+    <MESSAGE value="FileAnalyzer - add BufferedInputStream" />
+    <option name="LAST_COMMIT_MESSAGE" value="FileAnalyzer - add BufferedInputStream" />
   </component>
 </project>

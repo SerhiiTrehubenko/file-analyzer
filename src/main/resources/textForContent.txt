@@ -1,0 +1,3 @@
+This is true of both spoken/written languages and programming languages. It’s often
+subtle: A language gently guides you into certain modes of thought and away from
+others. Java is particularly opinionated.

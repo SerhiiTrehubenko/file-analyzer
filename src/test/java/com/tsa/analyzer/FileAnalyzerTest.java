@@ -3,14 +3,18 @@ package com.tsa.analyzer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static com.tsa.analyzer.Service.*;
+import static com.tsa.analyzer.PrintService.*;
 
 public class FileAnalyzerTest {
+
+    private static final String SENTENCES = "This is true of both spoken/written languages and programming languages." +
+            " It’s often\r\nsubtle: A language gently guides you into certain modes of thought and away from\r\nothers." +
+            " Java is particularly opinionated.";
 
     FileAnalyzer fileAnalyzer = new FileAnalyzer();
 
@@ -20,7 +24,7 @@ public class FileAnalyzerTest {
     void testCheckParametersQuantityLessThenTwo() {
         String[] parameters = {""};
 
-        assertThrows(IllegalArgumentException.class, () -> checkParameters(parameters));
+        assertThrows(IllegalArgumentException.class, () -> new ParametersAnalyzer(parameters));
     }
 
     @DisplayName("Test checkParameters(), IllegalArgumentException is thrown when" +
@@ -29,7 +33,7 @@ public class FileAnalyzerTest {
     void testCheckParametersQuantityBiggerThenTwo() {
         String[] parameters = {"", "", ""};
 
-        assertThrows(IllegalArgumentException.class, () -> checkParameters(parameters));
+        assertThrows(IllegalArgumentException.class, () -> new ParametersAnalyzer(parameters));
     }
 
     @DisplayName("Test checkParameters(), RuntimeException is thrown when" +
@@ -38,40 +42,20 @@ public class FileAnalyzerTest {
     void testCheckParametersFilePathIsNotValid() {
         String[] parameters = {"", ""};
 
-        assertThrows(RuntimeException.class, () -> checkParameters(parameters));
+        assertThrows(RuntimeException.class, () -> new ParametersAnalyzer(parameters));
     }
 
     @DisplayName("Test checkParameters(), with eligible parameters")
     @Test
     void testCheckParametersWithEligibleParameters() {
-        String path = "F:\\0_CODING\\11_Anatol_java\\file-analyzer\\text.txt";
+        String path = Paths.get(Path.of("").toAbsolutePath().toString(), "src", "main", "resources", "text.txt").toString();
         String word = "language";
         String[] parameters = {path, word};
 
-        Object[] result = checkParameters(parameters);
+        var resultParameters = new ParametersAnalyzer(parameters);
 
-        assertEquals(path, ((File) result[0]).getAbsolutePath());
-        assertEquals(word, result[1]);
-    }
-
-    @DisplayName("Test isSentenceSeparator(), returns TRUE when char is '.', '!', '?'")
-    @Test
-    void testIsSentenceSeparatorAccordingRequirements() {
-        char[] chars = {'.', '!', '?'};
-
-        assertTrue(fileAnalyzer.isSentenceSeparator(chars[0]));
-        assertTrue(fileAnalyzer.isSentenceSeparator(chars[1]));
-        assertTrue(fileAnalyzer.isSentenceSeparator(chars[2]));
-    }
-
-    @DisplayName("Test isSentenceSeparator(), returns FALSE when char is NOT '.', '!', '?'")
-    @Test
-    void testIsSentenceSeparatorRequirementsAreNotValid() {
-        char[] chars = {'d', ' ', '\n'};
-
-        assertFalse(fileAnalyzer.isSentenceSeparator(chars[0]));
-        assertFalse(fileAnalyzer.isSentenceSeparator(chars[1]));
-        assertFalse(fileAnalyzer.isSentenceSeparator(chars[2]));
+        assertEquals(path, resultParameters.getPath());
+        assertEquals(word, resultParameters.getWordToFind());
     }
 
     @DisplayName("Test isCrlf(), returns TRUE when char is '\r'")
@@ -99,44 +83,75 @@ public class FileAnalyzerTest {
         assertFalse(fileAnalyzer.isCr(chars[1]));
     }
 
-    @DisplayName("Test getSentenceContainsWord(), <Word is present> fill List with a sentence when the sentence contains needed word")
+    @DisplayName("Test getSentenceWithoutCrLf(), removes '\n' and '\r' from a sentence")
     @Test
-    void testGetSentenceContainsWordWordIsPresent() {
-        String word = "languages";
-        String text = "This is true of both spoken/written languages and programming languages.";
-        List<String> coincides = new ArrayList<>();
-        var stringBuilder = new StringBuilder();
-        stringBuilder.append(text);
+    void testGetSentenceWithoutCrLf() {
+        String sentenceWithCrLf = "This is true\nof both\nspoken/written\r languages and\nprogramming\r languages.";
+        String expected = "This is true of both spoken/written languages and programming languages.";
 
-        int numberWordCoincides = fileAnalyzer.getSentenceContainsWord(coincides, stringBuilder, word);
+        String sentenceWithoutCrLf = fileAnalyzer.getSentenceWithoutCrLf(sentenceWithCrLf);
 
-        assertEquals(1, coincides.size());
-        assertEquals(text, coincides.get(0));
-        assertEquals(2, numberWordCoincides);
+        assertEquals(expected, sentenceWithoutCrLf);
     }
 
-    @DisplayName("Test getSentenceContainsWord(), <Word is not present> fill List with a sentence when the sentence contains needed word")
+    @DisplayName("Test readContent(), reads content from file to String")
     @Test
-    void testGetSentenceContainsWordWordIsNotPresent() {
-        String word = "language";
-        String text = "Requiring that everything be\n" +
-                "an object (especially all the way down to the lowest level) is a design mistake, but\n" +
-                "banning objects altogether seems equally draconian.";
+    void testReadContent() {
+        String path = Paths.get(Path.of("").toAbsolutePath().toString(), "src", "main", "resources", "textForContent.txt").toString();
 
-        List<String> coincides = new ArrayList<>();
-        var stringBuilder = new StringBuilder();
-        stringBuilder.append(text);
+        String content = fileAnalyzer.readContent(path);
 
-        fileAnalyzer.getSentenceContainsWord(coincides, stringBuilder, word);
+        assertEquals(SENTENCES, content);
+    }
 
-        assertEquals(0, coincides.size());
+    @DisplayName("Test getListOfSentences(), splits String to a List of Strings")
+    @Test
+    void testGetListOfSentences() {
+        List<String> listOfSentence = fileAnalyzer.getListOfSentences(SENTENCES);
+
+        assertEquals(3, listOfSentence.size());
+    }
+
+    @DisplayName("Test getListOfFilteredSentences(), filters List of Strings to a List of Strings that contain searched word")
+    @Test
+    void testGetListOfFilteredSentences() {
+        String wordToFind = "thought";
+        String expected = "It’s often subtle: A language gently guides you into certain modes of thought and away from" +
+                " others";
+        List<String> listOfSentence = fileAnalyzer.getListOfSentences(SENTENCES);
+
+        List<String> filteredSentences = fileAnalyzer.getListOfFilteredSentences(listOfSentence, wordToFind);
+
+        assertEquals(3, listOfSentence.size());
+        assertEquals(expected, filteredSentences.get(0));
+    }
+
+    @DisplayName("Test countWord(List<String>, wordToFind), returns number of wordToFind coincides")
+    @Test
+    void testCountWord() {
+        String wordToFind = "languages";
+        List<String> listOfSentence = fileAnalyzer.getListOfSentences(SENTENCES);
+        List<String> filteredSentences = fileAnalyzer.getListOfFilteredSentences(listOfSentence, wordToFind);
+
+        int numberOfCoincides = fileAnalyzer.countWord(filteredSentences, wordToFind);
+
+        assertEquals(2, numberOfCoincides);
     }
 
     @Test
-    void testFileStatistic() {
-        String wordToFind = "language";
-        var fileStatistic = fileAnalyzer.processFile(new File("text.txt"), wordToFind);
+    void integrationTest() {
+        String expected = "Word to find: languages\n" +
+                "Number of word coincides: 4\n" +
+                "\n" +
+                "Number of sentences: 3\n" +
+                "1) This is true of both spoken/written languages and programming languages\n" +
+                "2) Java is also responsible for pushing the industry forward in other ways; for example, most languages are now expected to include documentation markup syntax and a tool to produce HTML documentation\n" +
+                "3) On the other hand, C++, VB, Perl, and other languages such as SmallTalk had some of their design efforts focused on the issue of complexity and as a result are remarkably successful in solving certain types of problems";
+        String wordToFind = "languages";
+        String path = Paths.get(Path.of("").toAbsolutePath().toString(), "src", "main", "resources", "text.txt").toString();
+        var fileStatistic = fileAnalyzer.processFile(path, wordToFind);
 
-        System.out.println(fileStatistic);
+        assertEquals(4, fileStatistic.getNumberOfCoincidence());
+        assertEquals(expected, toStringFileStatistics(fileStatistic));
     }
 }

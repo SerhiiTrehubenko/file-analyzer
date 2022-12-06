@@ -1,78 +1,85 @@
 package com.tsa.analyzer;
 
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class FileAnalyzer {
 
-    private final static Pattern pattern = Pattern.compile("[, .?!]");
+    private final static Pattern SENTENCE_SPLITERATOR = Pattern.compile("[, ]");
+    private final static Pattern CONTENT_SPLITERATOR = Pattern.compile("[.?!]");
+    private final static int BUFFER_SIZE = 8 * 1024;
 
-    public FileStatistic processFile(File file, String wordToFind) {
-        int numberOfCoincidence = 0;
-        List<String> coincides = new ArrayList<>();
-        StringBuilder stringBuilder = new StringBuilder();
+    public FileStatistic processFile(String path, String wordToFind) {
+        String content = readContent(path);
+        List<String> sentences = getListOfSentences(content);
+        List<String> filteredSentences = getListOfFilteredSentences(sentences, wordToFind);
 
-        try (var inputFile = new BufferedInputStream(new FileInputStream(file))) {
-            int readByte;
+        int numberOfCoincidence = countWord(filteredSentences, wordToFind);
 
-            while ((readByte = inputFile.read()) != -1) {
+        return new FileStatistic(filteredSentences, wordToFind, numberOfCoincidence);
+    }
 
-                if (!isCr(readByte) & !isLf(readByte)) {
-                    stringBuilder.append((char) readByte);
-                } else if (isLf(readByte)) {
-                    stringBuilder.append(' ');
-                }
-
-                if (isSentenceSeparator(readByte)) {
-                    numberOfCoincidence += getSentenceContainsWord(coincides, stringBuilder, wordToFind);
-                }
+    String readContent(String path) {
+        StringBuilder content = new StringBuilder();
+        try (var input = new FileInputStream(path)) {
+            byte[] buffer = new byte[BUFFER_SIZE];
+            int readBytes;
+            while ((readBytes = input.read(buffer)) != -1) {
+                content.append(new String(buffer, 0, readBytes));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        return new FileStatistic(coincides, wordToFind, numberOfCoincidence);
+        return content.toString();
     }
 
-    int getSentenceContainsWord(List<String> coincides,
-                                StringBuilder stringBuilder,
-                                String wordToFind) {
-
-        String sentenceToString = stringBuilder.toString().trim();
-        int numberOfCoincidence = checkWordOnCoincidence(sentenceToString, wordToFind);
-        if (numberOfCoincidence > 0) {
-            coincides.add(sentenceToString);
-        }
-        stringBuilder.delete(0, stringBuilder.length());
-        return numberOfCoincidence;
+    List<String> getListOfSentences(String content) {
+        return Stream.of(CONTENT_SPLITERATOR.split(content))
+                .map(this::getSentenceWithoutCrLf)
+                .collect(Collectors.toList());
     }
 
-    int checkWordOnCoincidence(String sentence, String wordToFind) {
-        int count = 0;
-        String[] splitByWords = pattern.split(sentence);
-        for (String splitByWord : splitByWords) {
-            if (Objects.equals(splitByWord, wordToFind)) {
-                count++;
+    List<String> getListOfFilteredSentences(List<String> sentences, String wordToFind) {
+        return sentences.stream().map(sentence -> {
+                    long coincides = Stream.of(SENTENCE_SPLITERATOR.split(sentence))
+                            .filter(word -> Objects.equals(wordToFind, word)).count();
+                    return coincides == 0 ? null : sentence.trim();
+                }).filter(Objects::nonNull)
+                .collect(Collectors.toList());
+    }
+
+    String getSentenceWithoutCrLf(String sentence) {
+
+        StringBuilder sentenceWithoutCrLf = new StringBuilder();
+        char[] chars = new char[sentence.length()];
+        sentence.getChars(0, sentence.length(), chars, 0);
+        for (char aChar : chars) {
+            if (isLf(aChar)) {
+                sentenceWithoutCrLf.append(' ');
+            } else if (!isCr(aChar)) {
+                sentenceWithoutCrLf.append(aChar);
             }
         }
-        return count;
+        return sentenceWithoutCrLf.toString();
     }
 
-    boolean isCr(int readByte) {
-        return readByte == 13; // '\r'
+    int countWord(List<String> sentences, String wordToFind) {
+        return (int) sentences.stream()
+                .flatMap(sentence -> Stream.of(SENTENCE_SPLITERATOR.split(sentence)))
+                .filter(word -> Objects.equals(word, wordToFind)).count();
+
     }
 
-    boolean isLf(int readByte) {
-        return readByte == 10; // '\n'
+    boolean isCr(char readByte) {
+        return readByte == '\r';
     }
 
-    boolean isSentenceSeparator(int castedChar) {
-        return castedChar == 46 | // '.'
-                castedChar == 33 | // '!'
-                castedChar == 63; // '?'
+    boolean isLf(char readByte) {
+        return readByte == '\n';
     }
 }

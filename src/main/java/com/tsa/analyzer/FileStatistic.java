@@ -28,21 +28,21 @@ public class FileStatistic {
         return wordToFind;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Number of word coincides: ")
-                .append(numberOfCoincidence)
-                .append("\n\n")
-                .append("Number of sentences: ")
-                .append(listOfSentences.size())
-                .append("\n");
-        int index = 1;
-        for (String sentence : listOfSentences) {
-            stringBuilder.append(index).append(") ").append(sentence)
-                    .append("\n");
-            index++;
-        }
-        return stringBuilder.toString();
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder stringBuilder = new StringBuilder();
+//        stringBuilder.append("Number of word coincides: ")
+//                .append(numberOfCoincidence)
+//                .append("\n\n")
+//                .append("Number of sentences: ")
+//                .append(listOfSentences.size())
+//                .append("\n");
+//        int index = 1;
+//        for (String sentence : listOfSentences) {
+//            stringBuilder.append(index).append(") ").append(sentence)
+//                    .append("\n");
+//            index++;
+//        }
+//        return stringBuilder.toString();
+//    }
 }
